@@ -21,6 +21,10 @@ const Cliente = sequelize.define("cliente", {
     type: DataTypes.STRING(255),
     allowNull: false,
   },
+  administrador: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false
+  },
   endereco: {
     type: DataTypes.STRING(255),
     allowNull: true,

@@ -1,6 +1,6 @@
 const createUser = require("../services/createUser");
 const checkIfUserExists = require("../services/checkIfUserExists");
-const validateEmail = require("../services/validateEmail");
+const validateEmail = require("../helpers/validateEmail");
 const jwt = require("jsonwebtoken");
 const createToken = require("../helpers/createToken");
 
@@ -21,24 +21,28 @@ module.exports = class AuthController {
     const userExists = await checkIfUserExists(email);
 
     if (userExists) {
-      return res.status(400).json({ message: "Usuário já existe" });
+      console.error(`Erro: O email ${email} já está cadastrado`);
+      return res.status(400).json({ message: `O email ${email} já está cadastrado` });
     }
-
+    
     try {
-      const newUser = await createUser(nome, email, senha);
+      const newUser = await createUser(nome, email, senha, adm);
+
       const payload = {
         id_cliente: newUser.id_cliente,
         email: newUser.email,
       };
+
       const token = createToken(payload);
+      console.log(`Novo usuário registrado: ${newUser.email},`)
       res.status(201).json({ newUser, token });
     } catch (error) {
       res.status(422).json(error);
       console.log(error);
     }
   }
-  static async login(req, res) {}
-  static async forgotPassword(req, res) {}
+  static async login(req, res) { }
+  static async forgotPassword(req, res) { }
 
   // GET ROUTES
   static async getLogin(req, res) {

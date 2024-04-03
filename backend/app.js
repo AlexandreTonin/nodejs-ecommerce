@@ -1,7 +1,7 @@
 // modules
 const express = require("express");
 require("dotenv").config();
-const sequelize = require("./db/dbConnection");
+const db = require("./db/dbConnection");
 const AuthRoutes = require("./routes/AuthRoutes");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
@@ -31,5 +31,5 @@ app.get("/", (req, res) => {
 
 app.listen(process.env.SERVER_PORT, () => {
   console.log("Servidor rodando na porta: ", process.env.SERVER_PORT);
-  sequelize.syncDatabase();
+  db.syncDatabase();
 });
