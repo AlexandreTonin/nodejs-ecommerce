@@ -25,7 +25,7 @@ async function userAuthenticate(email, senha) {
   const token = createToken(payload);
 
   if (checkPassword) {
-    return "Autenticado com sucesso";
+    return {msg: "Autenticado com sucesso", token: token};
   } else {
     return "Senha incorreta";
   }

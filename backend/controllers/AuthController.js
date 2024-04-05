@@ -54,12 +54,10 @@ module.exports = class AuthController {
     const hasToken = await userHasToken(req);
 
     if (hasToken) {
-      console.log("teste")
       return res.redirect("/");
     } else {
       const auth = await userAuthenticate(email, senha);
-      console.log(auth)
-      return res.status(200).json({msg:auth})
+      return res.status(200).json(auth);
     }
   }
   static async forgotPassword(req, res) {}
