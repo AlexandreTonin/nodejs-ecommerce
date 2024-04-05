@@ -14,6 +14,6 @@
     "sequelize": "^6.37.2"
   },
   "scripts": {
-    "start": "clear && nodemon --quiet ./app.js localhost 5000"
+    "start": "cls && nodemon --quiet ./app.js localhost 5000"
   }
 }
