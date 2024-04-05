@@ -21,10 +21,13 @@ const Produto = require("./models/Produto");
 const Cliente = require("./models/Cliente");
 const Pedido = require("./models/Pedido");
 const ItensPedido = require("./models/ItensPedido");
+const verifyToken = require("./helpers/verifyToken");
 
 // routes
 app.use("/", AuthRoutes);
-
+app.get("/users", verifyToken, (req,res) => {
+  res.status(200).json({msg: "Lista de usuários"})
+});
 app.get("/", (req, res) => {
   res.status(200).json({ rota: "/" });
 });
