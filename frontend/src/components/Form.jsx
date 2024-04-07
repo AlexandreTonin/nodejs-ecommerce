@@ -1,28 +1,52 @@
 import { Link } from "react-router-dom";
+import FormHeader from "./FormHeader";
+import FormLabel from "./FormLabel";
+import FormInput from "./FormInput";
+import Title from "./Title";
+import LinkButton from "./LinkButton";
+import Button from "./Button";
+import SmallGreyText from "./SmallGreyText";
+import ShadowCard from "./ShadowCard";
 
 export default function Form() {
-    return (
-        <>
-            {/* FORM HEADER */}
-            <section className="flex flex-col justify-center items-center gap-2">
-                <img src="/icon.svg" alt="Logo" className="w-20" />
-                <h1 className="font-bold text-3xl">Entre na sua conta</h1>
-                <p className="text-sm">Ainda não está cadastrado? <Link to="/register" className="text-blue-700">Registre-se</Link></p>
-            </section>
-
-            {/* FORM */}
-            <form action="" className="flex flex-col items-center gap-3">
-                <input type="email" className="border border-gray-300 w-1/3 rounded-md py-1 px-3" placeholder="Email" />
-                <input type="password" className="border border-gray-300 w-1/3 rounded-md py-1 px-3" placeholder="Password" />
-                <div className="flex gap-2 w-1/3 mt-2 justify-between">
-                    <div className="flex gap-2">
-                        <input type="checkbox" id="checkbox" />
-                        <label htmlFor="checkbox">Lembrar</label>
-                    </div>
-                    <Link to={"/forgotpassword"} className="text-blue-700 hover:text-blue-800 hover:underline transition">Esqueceu sua senha?</Link>
-                </div>
-                <button className="bg-blue-500 hover:bg-blue-600 transition text-white w-1/3 rounded py-1 mt-1 font-medium">Login</button>
+  return (
+    <section class="bg-gray-50 dark:bg-gray-900">
+      <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <FormHeader />
+        <ShadowCard>
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <Title text="Entre em sua conta" />
+            <form class="space-y-4 md:space-y-6" action="/login" method="post">
+              <div>
+                <FormLabel for="email" text="Email" />
+                <FormInput
+                  type="email"
+                  name="email"
+                  placeholder="email@dominio.com"
+                  required
+                />
+              </div>
+              <div>
+                <FormLabel for="password" text="Senha" />
+                <FormInput
+                  type="password"
+                  name="senha"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+              <div class="flex items-center justify-end">
+                <LinkButton href="/forgotpassword" text="Esqueceu sua senha?" />
+              </div>
+              <Button text="Entrar" type="submit" />
+              <SmallGreyText>
+                Ainda não possui uma conta?{" "}
+                <LinkButton href="/register" text="Registre-se" />
+              </SmallGreyText>
             </form>
-        </>
-    )
+          </div>
+        </ShadowCard>
+      </div>
+    </section>
+  );
 }
