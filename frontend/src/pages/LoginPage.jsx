@@ -8,7 +8,7 @@ import Button from "../components/Button";
 
 export default function LoginPage() {
   return (
-    <div className="">
+    <div>
       <Form formAction="/login" formMethod="post" header title formTitle="Entre em sua conta">
         <div>
           <FormLabel for="email" text="Email" />

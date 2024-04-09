@@ -15,37 +15,34 @@ export default function RegisterPage() {
       title
       formTitle="Crie sua conta"
     >
-      <div>
-        <FormLabel for="nome" text="Nome" />
-        <FormInput
-          type="text"
-          name="nome"
-          placeholder="Albert Einstein"
-          required
-        />
-      </div>
-      <div>
-        <FormLabel for="email" text="Email" />
-        <FormInput
-          type="email"
-          name="email"
-          placeholder="email@dominio.com"
-          required
-        />
-      </div>
-      <div>
-        <FormLabel for="password" text="Senha" />
-        <FormInput
-          type="password"
-          name="senha"
-          placeholder="••••••••"
-          required
-        />
-      </div>
+      <FormInput
+        type="text"
+        name="nome"
+        placeholder="Albert Einstein"
+        required
+        labelFor="nome"
+        labelText="Nome"
+      />
+      <FormInput
+        type="email"
+        name="email"
+        placeholder="email@dominio.com"
+        required
+        labelFor="email"
+        labelText="Email"
+      />
+      <FormInput
+        type="password"
+        name="senha"
+        placeholder="••••••••"
+        required
+        labelFor="password"
+        labelText="Senha"
+      />
       <Button text="Entrar" type="submit" />
+
       <SmallGreyText>
-        Já possui uma conta?{" "}
-        <LinkButton href="/login" text="Entrar" />
+        Já possui uma conta? <LinkButton href="/login" text="Entrar" />
       </SmallGreyText>
     </Form>
   );
