@@ -4,7 +4,7 @@ import { IoPersonCircle } from "react-icons/io5";
 import { useState } from "react";
 
 export default function Header() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const token = localStorage.getItem('token');
 
   return (
     <div className="w-screen bg-gray-50 dark:bg-gray-900 h-20 border-b border-gray-800">
@@ -38,7 +38,7 @@ export default function Header() {
               Sobre
             </Link>
           </navbar>
-          {isAuthenticated ? (
+          {token ? (
             <span className="text-2xl flex items-center gap-4">
               <Link
                 to={"/cart"}

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Form from "../components/Form";
 import FormInput from "../components/FormInput";
 import FormLabel from "../components/FormLabel";
@@ -9,6 +9,7 @@ import { useState } from "react";
 import axios from "axios";
 import { FaRegCheckCircle } from "react-icons/fa";
 import ModalAlert from "../components/ModalAlert";
+import { VscError } from "react-icons/vsc";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -16,8 +17,10 @@ export default function RegisterPage() {
     email: "",
     senha: "",
   });
-
-  const [enviado, setEnviado] = useState(false);
+  const [enviado, setEnviado] = useState(null);
+  const [mensagem, setMensagem] = useState("");
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -32,34 +35,54 @@ export default function RegisterPage() {
         "http://localhost:3000/register",
         formData
       );
+      const token = response.data.token;
+      localStorage.setItem("token", token);
+      setToken(token);
       setEnviado(true);
-      setFormData({
-        nome: "",
-        email: "",
-        senha: "",
-      });
-
-      console.log("Resposta da API: ", response.data);
+      setMensagem("Os dados foram enviados com sucesso.");
+      setFormData({ nome: "", email: "", senha: "" });
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     } catch (error) {
-      console.error(`Erro ao enviar formulário ${error}`);
+      setEnviado(false);
+      setMensagem("Os dados não foram enviados. Por favor, tente novamente.");
+    }
+  };
+
+  const renderModal = () => {
+    if (enviado === true) {
+      return (
+        <div className="absolute h-screen w-screen flex items-center justify-center bg-black bg-opacity-50 text-white text-3xl font-bold">
+          <ModalAlert
+            text="Cadastro realizado com sucesso"
+            icon={<FaRegCheckCircle className="text-green-400 text-5xl" />}
+          />
+        </div>
+      );
+    } else if (enviado === false) {
+      return (
+        <div
+          className="absolute h-screen w-screen flex items-center justify-center bg-black bg-opacity-50 text-white text-3xl font-bold"
+          onClick={() => setEnviado(null)}
+        >
+          <ModalAlert
+            text="Não foi possível enviar os dados"
+            buttonText="Tentar novamente"
+            icon={<VscError className="text-red-400" />}
+            onClick={() => setEnviado(null)}
+          />
+        </div>
+      );
+    } else {
+      return null;
     }
   };
 
   return (
     <>
-      {enviado && (
-        <div
-          className="absolute h-screen w-screen flex items-center justify-center bg-black bg-opacity-50 text-white text-3xl font-bold"
-          onClick={() => setEnviado(false)}
-        >
-          <ModalAlert
-            text="Cadastro realizado com sucesso"
-            onClick={() => setEnviado(false)}
-            buttonText="OK"
-            icon={<FaRegCheckCircle className="text-green-400 text-5xl" />}
-          />
-        </div>
-      )}
+      {renderModal()}
+
       <Form header title formTitle="Crie sua conta" onSubmit={handleSubmit}>
         <FormInput
           type="text"
@@ -92,7 +115,6 @@ export default function RegisterPage() {
           onChange={handleChange}
         />
         <Button text="Entrar" type="submit" />
-
         <SmallGreyText>
           Já possui uma conta? <LinkButton href="/login" text="Entrar" />
         </SmallGreyText>
