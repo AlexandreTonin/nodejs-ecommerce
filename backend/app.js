@@ -5,9 +5,12 @@ const db = require("./db/dbConnection");
 const AuthRoutes = require("./routes/AuthRoutes");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const cors = require("cors")
 
 // express
 const app = express();
+
+app.use(cors());
 
 // middlewares
 app.use(express.json());

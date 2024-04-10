@@ -10,10 +10,11 @@
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.9.3",
+    "nodemailer": "^6.9.13",
     "nodemon": "^3.1.0",
     "sequelize": "^6.37.2"
   },
   "scripts": {
-    "start": "cls && nodemon --quiet ./app.js localhost 5000"
+    "start": "clear && nodemon --quiet ./app.js localhost 3000"
   }
 }
