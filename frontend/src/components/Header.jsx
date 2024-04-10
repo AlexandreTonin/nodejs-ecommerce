@@ -4,7 +4,7 @@ import { IoPersonCircle } from "react-icons/io5";
 import { useState } from "react";
 
 export default function Header() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
     <div className="w-screen bg-gray-50 dark:bg-gray-900 h-20 border-b border-gray-800">

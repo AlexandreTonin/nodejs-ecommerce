@@ -20,6 +20,7 @@ export default function Form(props) {
               class="space-y-4 md:space-y-6"
               action={props.formAction}
               method={props.formMethod}
+              onSubmit={props.onSubmit}
             >
               {props.children}
             </form>
